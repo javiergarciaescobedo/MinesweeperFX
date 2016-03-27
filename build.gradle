@@ -1,0 +1,38 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.javafxports:jfxmobile-plugin:1.0.7'
+    }
+}
+
+apply plugin: 'org.javafxports.jfxmobile'
+
+repositories {
+    jcenter()
+}
+
+mainClassName = 'es.javiergarciaescobedo.minesweeperfx.Main'
+
+jfxmobile {
+    android {
+        manifest = 'src/android/AndroidManifest.xml'
+    }
+    ios {
+        infoPList = file('src/ios/Default-Info.plist')
+    }
+}
+
+// Añadido para poder usar la clase PlatformFactory que permite conocer el tipo
+//  de dispositivo sobre el que se esté ejecutando la aplicación
+// Descargar librerías desde menú contextual del proyecto > Reload Project
+// Comprobar última versión en http://mvnrepository.com/artifact/com.gluonhq/charm-down-common
+ext.CHARM_DOWN_VERSION = '2.0.0'
+
+dependencies {
+    compile "com.gluonhq:charm-down-common:$CHARM_DOWN_VERSION"
+    desktopRuntime "com.gluonhq:charm-down-desktop:$CHARM_DOWN_VERSION"
+    androidRuntime "com.gluonhq:charm-down-android:$CHARM_DOWN_VERSION"
+    iosRuntime "com.gluonhq:charm-down-ios:$CHARM_DOWN_VERSION"
+}
